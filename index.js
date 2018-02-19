@@ -21,7 +21,7 @@ var buildBranch = function (branch) {
   exec('rm -rf staging_dump.sql');
   exec('sudo killall ruby && sudo killall bundle');
   exec('bundle install');
-  exec('rake db:migrate');
+  exec('rbenv sudo rake db:migrate');
   exec('rbenv sudo rails s -d -p 80 &');
   exec('bundle exec sidekiq -d -l sidekiq.log &');
   isRunning = false;
