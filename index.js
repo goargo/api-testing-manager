@@ -17,9 +17,10 @@ var buildBranch = function (branch) {
   exec(
     "pg_dump --dbname=postgresql://argoapi:__DBURL__:5432/ebdb --format t -f staging_dump.sql"
   );
-  exec('pg_restore --clean -d argo_api_testing staging_dump.sql');
-  exec('rm -rf staging_dump.sql');
   exec('sudo killall ruby && sudo killall bundle');
+  exec('rbenv sudo rake db:drop db:create');
+  exec('pg_restore -d argo_api_testing staging_dump.sql');
+  exec('rm -rf staging_dump.sql');
   exec('bundle install');
   exec('rbenv sudo rake db:migrate');
   exec('rbenv sudo rails s -d -p 80 &');
