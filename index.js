@@ -24,7 +24,7 @@ var buildBranch = function (branch) {
   exec('bundle install');
   exec('rbenv sudo rake db:migrate');
   exec('rbenv sudo rails s -d -p 80 &');
-  exec('bundle exec sidekiq -d -l sidekiq.log &');
+  exec('rbenv sudo bundle exec sidekiq -d -l sidekiq.log &');
   isRunning = false;
   activeBranch = branch;
 };
